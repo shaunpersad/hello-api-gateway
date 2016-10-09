@@ -9,7 +9,7 @@ api-gateway:
     - rabbitmq
   restart: always
   ports:
-    - '3000:3000'
+    - '3000:${APP_PORT}'
   volumes:
     - .:/usr/src/app
     - /usr/src/app/node_modules
