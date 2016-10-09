@@ -9,13 +9,22 @@ const ready = require('hello-common/ready');
 
 const languages = ['english', 'spanish', 'hawaiian'];
 
-
+/**
+ * Regular old endpoint.
+ */
 app.get('/hi', (req, res) => {
 
     res.send('hi');
 });
 
-
+/**
+ * Endpoint that leverages three other services.
+ * In actuality, there are four services at play here, since each of these three
+ * language services makes another call to a fourth service to reverse their greeting.
+ *
+ * The API Gateway doesn't care about that though.
+ * All it needs to know about are the three services it's explicitly calling.
+ */
 app.get('/greeting', (req, res) => {
 
     async.map(languages, (language, callback) => {
@@ -39,7 +48,7 @@ app.get('/greeting', (req, res) => {
             return `${greeting} (${reverse})`;
         }).join(', ');
 
-        res.send(`${hello} crazy world!!!`);
+        res.send(`${hello} world!`);
     });
 });
 
@@ -55,7 +64,7 @@ ready({
         port: 5672,
         username: 'guest',
         password: 'guest',
-        pin: [
+        pin: [ // the services that the API Gateway can send requests to.
             {service: 'service-english'},
             {service: 'service-hawaiian'},
             {service: 'service-spanish'}
