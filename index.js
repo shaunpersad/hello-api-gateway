@@ -40,6 +40,10 @@ app.get('/greeting', (req, res) => {
             return res.send('an error occurred!');
         }
 
+        /**
+         * Join all the results into a single string.
+         * 
+         */
         const hello = _.map(results, (result) => {
             
             const greeting = _.get(result, 'greeting', 'unknown');
@@ -48,10 +52,13 @@ app.get('/greeting', (req, res) => {
             return `${greeting} (${reverse})`;
         }).join(', ');
 
-        res.send(`${hello} world!`);
+        res.send(`${hello} from the upside-down world!`);
     });
 });
 
+/**
+ * Check if rabbitmq is ready before allowing this service to use it.
+ */
 ready({
     hostname: 'rabbitmq',
     port: 15672,
