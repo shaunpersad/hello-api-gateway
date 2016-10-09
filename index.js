@@ -7,7 +7,7 @@ const amqp = require('seneca-amqp-transport');
 const seneca =require('seneca')().use(amqp);
 const ready = require('hello-common/ready');
 
-const languages = ['english'];
+const languages = ['english', 'spanish', 'hawaiian'];
 
 
 app.get('/hi', (req, res) => {
