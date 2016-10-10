@@ -27,8 +27,14 @@ app.get('/hi', (req, res) => {
  */
 app.get('/greeting', (req, res) => {
 
+    /**
+     * Map each language to a service call.
+     */
     async.map(languages, (language, callback) => {
 
+        /**
+         * Use seneca to call the specified service.
+         */
         seneca.act({
             service: `service-${language}`,
             word_type: 'greeting'
